@@ -1,8 +1,11 @@
 import csv
 
+
 with open('imagedesc.csv', newline='') as imgdes:
     reader = csv.reader(imgdes)
     imglist = [row for row in reader]
+
+print(imglist)
 
 with open('data.csv', newline='') as datafile:
     reader = csv.reader(datafile)
@@ -35,13 +38,17 @@ elementrank=[]
 for listele in userimage:
     elementrank.append(int(ranks[listele-1]))
 
+
 imgweight=sum(elementrank)
 
 
 for x in range(len(elementrank)):
     ratioele=(100 * elementrank[x]) / imgweight
     imgratio.append(ratioele)
-    print(itemname[userimage[x]-1],"ratio in image: ",ratioele,"%")
+    print(itemname[userimage[x]-1],"ratio in image: ",ratioele)
+
+# print(imgratio)
+# print(sum(imgratio))
 
 nested_list = imglist
 
@@ -53,6 +60,7 @@ for y in range(len(userimage)):
     for sublist in nested_list:
         if search_element in sublist:
             id=int(search_element)-1
-            print(itemname[id],"found in image no ",nested_list.index(sublist)+1,f" describing image: {sublist}")
+            print(itemname[id],f"found in sublist: {sublist}")
             foundat.append(nested_list.index(sublist)+1)
 
+print(foundat)
