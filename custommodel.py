@@ -5,17 +5,21 @@ with open('imagedesc.csv', newline='') as imgdes:
     reader = csv.reader(imgdes)
     imglist = [row for row in reader]
 
-# with open('artists.csv', newline='') as artfile:
-#     reader = csv.reader(artfile)
-#     artlist = [row for row in reader]
-#
-# print(artlist)
-#
-# artists=[]
+with open('artists.csv', 'r') as csvfile:
+    csvreader = csv.reader(csvfile)
+    alist = []
+    for row in csvreader:
+        alist.append(row)
 
-# for i in range(len(imglist)):
-#     rng = random.randint(1, len(artlist)+1)
-#     artists.append(artlist[rng])
+print(alist)
+
+artists=[]
+
+for i in range(len(imglist)):
+    rng = random.randint(1, len(alist)-1)
+    artists.append(alist[rng])
+
+print(artists,len(artists))
 
 with open('data.csv', newline='') as datafile:
     reader = csv.reader(datafile)
@@ -69,3 +73,5 @@ for y in range(len(userimage)):
             id=int(search_element)-1
             print(itemname[id],"found in image no ",nested_list.index(sublist)+1,f" describing image: {sublist}")
             foundat.append(nested_list.index(sublist)+1)
+
+cred
