@@ -1,23 +1,22 @@
 import csv
+import difflib
+
+# Define a function to find the closest match
+def find_closest_match(word, word_list):
+    return difflib.get_close_matches(word, word_list, n=1, cutoff=0.6)
 
 with open('imagedesc.csv', newline='') as imgdes:
     reader = csv.reader(imgdes)
-    data = [row for row in reader]
+    imglist = [row for row in reader]
 
-
-
-# imageno = randrange(1,len(data)+1)
-#
-# print(imageno+1)
-# print(data[imageno])
-
+print(imglist)
 
 with open('data.csv', newline='') as datafile:
     reader = csv.reader(datafile)
     data2 = list(reader)
 
 # Extract each column as a separate list
-itemname = [row[1] for row in data2]
+itemname = [str.lower(row[1]) for row in data2]
 ranks = [row[3] for row in data2]
 
 # Print the first row of data
@@ -53,3 +52,18 @@ for x in range(len(elementrank)):
 
 print(imgratio)
 print(sum(imgratio))
+
+nested_list = imglist
+
+foundat=[]
+
+# Use a nested loop to search for the element
+for y in range(len(userimage)):
+    search_element = str(userimage[y])
+    for sublist in nested_list:
+        if search_element in sublist:
+            print(f"{search_element} found in sublist: {sublist}")
+            foundat.append(nested_list.index(sublist)+1)
+
+print(foundat)
+
