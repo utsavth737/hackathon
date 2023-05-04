@@ -1,45 +1,89 @@
-from skimage.metrics import structural_similarity
-import cv2
-import numpy as np
+import csv
+import random
 
-first = cv2.imread('clownfish_1.jpeg')
-second = cv2.imread('clownfish_2.jpeg')
+with open('imagedesc.csv', newline='') as imgdes:
+    reader = csv.reader(imgdes)
+    imglist = [row for row in reader]
 
-# Convert images to grayscale
-first_gray = cv2.cvtColor(first, cv2.COLOR_BGR2GRAY)
-second_gray = cv2.cvtColor(second, cv2.COLOR_BGR2GRAY)
+with open('artists.csv', 'r') as csvfile:
+    csvreader = csv.reader(csvfile)
+    alist = []
+    for row in csvreader:
+        alist.append(row)
 
-# Compute SSIM between two images
-score, diff = structural_similarity(first_gray, second_gray, full=True)
-print("Similarity Score: {:.3f}%".format(score * 100))
+print(alist)
 
-# The diff image contains the actual image differences between the two images
-# and is represented as a floating point data type so we must convert the array
-# to 8-bit unsigned integers in the range [0,255] before we can use it with OpenCV
-diff = (diff * 255).astype("uint8")
+artists=[]
 
-# Threshold the difference image, followed by finding contours to
-# obtain the regions that differ between the two images
-thresh = cv2.threshold(diff, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-contours = contours[0] if len(contours) == 2 else contours[1]
+for i in range(len(imglist)):
+    rng = random.randint(1, len(alist)-1)
+    artists.append(alist[rng])
 
-# Highlight differences
-mask = np.zeros(first.shape, dtype='uint8')
-filled = second.copy()
+print(artists,len(artists))
 
-for c in contours:
-    area = cv2.contourArea(c)
-    if area > 100:
-        x,y,w,h = cv2.boundingRect(c)
-        cv2.rectangle(first, (x, y), (x + w, y + h), (36,255,12), 2)
-        cv2.rectangle(second, (x, y), (x + w, y + h), (36,255,12), 2)
-        cv2.drawContours(mask, [c], 0, (0,255,0), -1)
-        cv2.drawContours(filled, [c], 0, (0,255,0), -1)
+with open('data.csv', newline='') as datafile:
+    reader = csv.reader(datafile)
+    data2 = list(reader)
 
-cv2.imshow('first', first)
-cv2.imshow('second', second)
-cv2.imshow('diff', diff)
-cv2.imshow('mask', mask)
-cv2.imshow('filled', filled)
-cv2.waitKey()
+# Extract each column as a separate list
+itemname = [str.lower(row[1]) for row in data2]
+ranks = [row[3] for row in data2]
+
+# Print the first row of data
+input_string = input("Enter the image prompt: ")
+delimiter = ","
+
+# Split the input string into words using the delimiter
+word_list = input_string.split(delimiter)
+
+userimage=[]
+imgratio=[]
+sem=0
+
+for i in word_list:
+    if i in itemname:
+        userimage.append(itemname.index(i)+1)
+    else:
+        print(i,"not present")
+
+
+elementrank=[]
+
+for listele in userimage:
+    elementrank.append(int(ranks[listele-1]))
+
+imgweight=sum(elementrank)
+
+
+for x in range(len(elementrank)):
+    ratioele=(100 * elementrank[x]) / imgweight
+    imgratio.append(ratioele)
+    print(itemname[userimage[x]-1],"ratio in image: ",ratioele,"%")
+
+nested_list = imglist
+
+foundat=[]
+imgcredit=[]
+
+print("\nsearching prompt for matching images in dataset\n")
+# Use a nested loop to search for the element
+for y in range(len(userimage)):
+    search_element = str(userimage[y])
+    for sublist in nested_list:
+        if search_element in sublist:
+            id=int(search_element)-1
+            print(itemname[id],"found in image number ",nested_list.index(sublist)+1)
+            print("artist: ",artists[nested_list.index(sublist)])
+            print("image number ",nested_list.index(sublist)+1,"is made up of: ")
+
+            if artists[nested_list.index(sublist)+1] not in imgcredit:
+                imgcredit.append(artists[nested_list.index(sublist)])
+            for i in sublist:
+                i=int(i)
+                print(itemname[i-1],end=",")
+            print("\n")
+            foundat.append(nested_list.index(sublist)+1)
+
+print("artists to be credited: ")
+for i in imgcredit:
+    print(i)

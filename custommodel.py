@@ -11,15 +11,11 @@ with open('artists.csv', 'r') as csvfile:
     for row in csvreader:
         alist.append(row)
 
-print(alist)
-
 artists=[]
 
 for i in range(len(imglist)):
     rng = random.randint(1, len(alist)-1)
     artists.append(alist[rng])
-
-print(artists,len(artists))
 
 with open('data.csv', newline='') as datafile:
     reader = csv.reader(datafile)
@@ -46,23 +42,10 @@ for i in word_list:
     else:
         print(i,"not present")
 
-
-elementrank=[]
-
-for listele in userimage:
-    elementrank.append(int(ranks[listele-1]))
-
-imgweight=sum(elementrank)
-
-
-for x in range(len(elementrank)):
-    ratioele=(100 * elementrank[x]) / imgweight
-    imgratio.append(ratioele)
-    print(itemname[userimage[x]-1],"ratio in image: ",ratioele,"%")
-
 nested_list = imglist
 
 foundat=[]
+imgcredit=[]
 
 print("\nsearching prompt for matching images in dataset\n")
 # Use a nested loop to search for the element
@@ -71,7 +54,32 @@ for y in range(len(userimage)):
     for sublist in nested_list:
         if search_element in sublist:
             id=int(search_element)-1
-            print(itemname[id],"found in image no ",nested_list.index(sublist)+1,f" describing image: {sublist}")
+            print(itemname[id],"found in image number ",nested_list.index(sublist)+1)
+            print("artist: ",artists[nested_list.index(sublist)])
+            print("image number ",nested_list.index(sublist)+1,"is made up of: ")
+
+            if artists[nested_list.index(sublist)+1] not in imgcredit:
+                imgcredit.append(artists[nested_list.index(sublist)])
+            for i in sublist:
+                i=int(i)
+                print(itemname[i-1],end=",")
+            print("\n")
             foundat.append(nested_list.index(sublist)+1)
 
-cred
+elementrank=[]
+
+for listele in userimage:
+    elementrank.append(int(ranks[listele-1]))
+
+imgweight=sum(elementrank)
+
+print("The new genrated image is built in the proportion:")
+for x in range(len(elementrank)):
+    ratioele=(100 * elementrank[x]) / imgweight
+    imgratio.append(ratioele)
+    print(ratioele,"% of the image will be",itemname[userimage[x]-1])
+print("genrated image was derived from",len(foundat),"training images from dataset")
+
+print("\nartists to be credited: ")
+for i in imgcredit:
+    print(i)
