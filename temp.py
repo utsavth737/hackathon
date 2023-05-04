@@ -1,24 +1,45 @@
+from skimage.metrics import structural_similarity
 import cv2
 import numpy as np
 
-def compare_images(image1_path, image2_path):
-    # Load the images
-    image1 = cv2.imread(image1_path)
-    image2 = cv2.imread(image2_path)
+first = cv2.imread('clownfish_1.jpeg')
+second = cv2.imread('clownfish_2.jpeg')
 
-    # Convert the images to grayscale
-    gray1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
-    gray2 = cv2.cvtColor(image2, cv2.COLOR_BGR2GRAY)
+# Convert images to grayscale
+first_gray = cv2.cvtColor(first, cv2.COLOR_BGR2GRAY)
+second_gray = cv2.cvtColor(second, cv2.COLOR_BGR2GRAY)
 
-    # Calculate the SSIM between the two images
-    ssim = cv2.compare_ssim(gray1, gray2)
+# Compute SSIM between two images
+score, diff = structural_similarity(first_gray, second_gray, full=True)
+print("Similarity Score: {:.3f}%".format(score * 100))
 
-    # Return the similarity percentage (SSIM ranges from -1 to 1)
-    similarity_percentage = (ssim + 1) / 2 * 100
-    return similarity_percentage
+# The diff image contains the actual image differences between the two images
+# and is represented as a floating point data type so we must convert the array
+# to 8-bit unsigned integers in the range [0,255] before we can use it with OpenCV
+diff = (diff * 255).astype("uint8")
 
-# Example usage:
-image1_path = 'a.png'
-image2_path = 'b.png'
-similarity_percentage = compare_images(image1_path, image2_path)
-print(f'The similarity between the images is {similarity_percentage:.2f}%')
+# Threshold the difference image, followed by finding contours to
+# obtain the regions that differ between the two images
+thresh = cv2.threshold(diff, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+contours = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+contours = contours[0] if len(contours) == 2 else contours[1]
+
+# Highlight differences
+mask = np.zeros(first.shape, dtype='uint8')
+filled = second.copy()
+
+for c in contours:
+    area = cv2.contourArea(c)
+    if area > 100:
+        x,y,w,h = cv2.boundingRect(c)
+        cv2.rectangle(first, (x, y), (x + w, y + h), (36,255,12), 2)
+        cv2.rectangle(second, (x, y), (x + w, y + h), (36,255,12), 2)
+        cv2.drawContours(mask, [c], 0, (0,255,0), -1)
+        cv2.drawContours(filled, [c], 0, (0,255,0), -1)
+
+cv2.imshow('first', first)
+cv2.imshow('second', second)
+cv2.imshow('diff', diff)
+cv2.imshow('mask', mask)
+cv2.imshow('filled', filled)
+cv2.waitKey()
