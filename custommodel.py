@@ -1,8 +1,21 @@
 import csv
+import random
 
 with open('imagedesc.csv', newline='') as imgdes:
     reader = csv.reader(imgdes)
     imglist = [row for row in reader]
+
+# with open('artists.csv', newline='') as artfile:
+#     reader = csv.reader(artfile)
+#     artlist = [row for row in reader]
+#
+# print(artlist)
+#
+# artists=[]
+
+# for i in range(len(imglist)):
+#     rng = random.randint(1, len(artlist)+1)
+#     artists.append(artlist[rng])
 
 with open('data.csv', newline='') as datafile:
     reader = csv.reader(datafile)
@@ -13,7 +26,7 @@ itemname = [str.lower(row[1]) for row in data2]
 ranks = [row[3] for row in data2]
 
 # Print the first row of data
-input_string = input("Enter a string: ")
+input_string = input("Enter the image prompt: ")
 delimiter = ","
 
 # Split the input string into words using the delimiter
@@ -47,6 +60,7 @@ nested_list = imglist
 
 foundat=[]
 
+print("\nsearching prompt for matching images in dataset\n")
 # Use a nested loop to search for the element
 for y in range(len(userimage)):
     search_element = str(userimage[y])
@@ -55,4 +69,3 @@ for y in range(len(userimage)):
             id=int(search_element)-1
             print(itemname[id],"found in image no ",nested_list.index(sublist)+1,f" describing image: {sublist}")
             foundat.append(nested_list.index(sublist)+1)
-

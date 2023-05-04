@@ -1,84 +1,50 @@
-﻿,object,,size ranking,categorization
-1,Electron,1,1,N
-2,Atom,2.2,3,N
-3,Molecule,3.4,4,Y
-4,Virus,4.6,5,Y
-5,Bacteria,5.8,6,Y
-6,Cell,7,7,Y
-7,Grain of sand,8.2,9,N
-8,Grain of rice,9.4,10,N
-9,Blueberry,10.6,11,N
-10,Hair strand,11.8,12,N
-11,Insect,13,13,Y
-12,Cherry tomato,14.2,15,N
-13,Clementine,15.4,16,N
-14,Kiwi,16.6,17,N
-15,Lemon,17.8,18,N
-16,Avocado,19,19,N
-17,Apple,20.2,21,N
-18,Orange,21.4,22,N
-19,Mango,22.6,23,N
-20,Pineapple,23.8,24,N
-21,Watermelon,25,25,N
-22,Fish,26.2,27,Y
-23,Frog,27.4,28,Y
-24,Bird,28.6,29,Y
-25,Cat,29.8,30,Y
-26,Dog,31,31,Y
-27,Dog house,32.2,33,Y
-28,Human,33.4,34,Y
-29,Car,34.6,35,Y
-30,Motorcycle,35.8,36,Y
-31,Garden shed,37,37,N
-32,Shipping container,38.2,39,N
-33,Small trailer,39.4,40,N
-34,Bus,40.6,41,Y
-35,Small airplane,41.8,42,Y
-36,Helicopter,43,43,N
-37,Yacht,44.2,45,N
-38,Sailboat,45.4,46,N
-39,Train car,46.6,47,N
-40,Small airplane hangar,47.8,48,N
-41,Single-family house,49,49,N
-42,Small office building,50.2,51,N
-43,Skyscraper,51.4,52,N
-44,Cruise ship,52.6,53,N
-45,Cargo ship,53.8,54,N
-46,Aircraft carrier,55,55,N
-47,Oil rig,56.2,57,N
-48,Wind turbine,57.4,58,N
-49,Satellite,58.6,59,N
-50,Space shuttle,59.8,60,N
-51,Space station,61,61,N
-52,Airport terminal,62.2,63,N
-53,Shopping mall,63.4,64,N
-54,Football field,64.6,65,N
-55,Baseball stadium,65.8,66,N
-56,Hockey rink,67,67,N
-57,Basketball court,68.2,69,N
-58,Tennis court,69.4,70,N
-59,Soccer field,70.6,71,N
-60,Golf course,71.8,72,N
-61,City block,73,73,N
-62,Small park,74.2,75,N
-63,Nature preserve,75.4,76,N
-64,Small lake,76.6,77,N
-65,Small river,77.8,78,N
-66,Large tree,79,79,N
-67,Small mountain,80.2,81,N
-68,Volcano,81.4,82,N
-69,Large lake,82.6,83,N
-70,Small island,83.8,84,N
-71,Large island,85,85,N
-72,Asteroid,86.2,87,N
-73,Moon,87.4,88,N
-74,Dwarf planet,88.6,89,N
-75,Planet,89.8,90,N
-76,Star,91,91,N
-77,Neutron star,92.2,93,N
-78,Black hole,93.4,94,N
-79,Solar system,94.6,95,N
-80,Galaxy,95.8,96,N
-81,Galaxy cluster,97,97,N
-82,Supercluster,98.2,99,N
-83,Universe,99.4,100,N
+﻿Leonardo da Vinci
+Michelangelo
+Rembrandt
+Vincent van Gogh
+Pablo Picasso
+Claude Monet
+Salvador Dali
+Johannes Vermeer
+Sandro Botticelli
+Edward Hopper
+Gustav Klimt
+Wassily Kandinsky
+Paul Cezanne
+Marc Chagall
+Francisco Goya
+Henri Matisse
+Henri Rousseau
+Georgia O'Keeffe
+Diego Rivera
+Frida Kahlo
+Johannes Itten
+Mark Rothko
+Roy Lichtenstein
+Andy Warhol
+Robert Rauschenberg
+Frank Stella
+Jasper Johns
+Willem de Kooning
+Jackson Pollock
+Gustave Moreau
+John Singer Sargent
+Paul Gauguin
+Amedeo Modigliani
+Edward Burne-Jones
+William Blake
+Hieronymus Bosch
+Pieter Bruegel the Elder
+Jan van Eyck
+Hans Holbein the Younger
+Albrecht Dürer
+Diego Velázquez
+Caravaggio
+Sandro Botticelli
+Tiziano Vecellio
+Peter Paul Rubens
+Diego Rivera
+David Alfaro Siqueiros
+Rufino Tamayo
+Frida Kahlo
+Remedios Varo
